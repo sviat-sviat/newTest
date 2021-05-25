@@ -49,6 +49,18 @@ export class BaseActions {
     );
   }
 
+  async waitForElementToBeClickable(
+    element: ElementFinder,
+    timeToWait: number = timeout,
+    msg = `Failed to wait for element to be clickable by locator: '${element.locator()}')`
+  ) {
+    await this._browser.wait(
+      ExpectedConditions.elementToBeClickable(element),
+      timeToWait,
+      msg
+    );
+  }
+
   async isElementPresent(element: ElementFinder): Promise<boolean> {
     return await element.isPresent();
   }
@@ -59,6 +71,7 @@ export class BaseActions {
 
   async clickElement(element: ElementFinder) {
     await this.waitForElementPresent(element);
+    await this.waitForElementToBeClickable(element);
     await element.click();
   }
 
@@ -72,5 +85,19 @@ export class BaseActions {
     if ((await this._browser.getCurrentUrl()) != url) {
       await this._browser.get(url);
     }
+  }
+
+  async getElementAttribute(
+    element: ElementFinder,
+    attributeName: string
+  ): Promise<string> {
+    await this.waitForElementPresent(element);
+    return element.getAttribute(attributeName);
+  }
+
+  async getText(element: ElementFinder): Promise<string> {
+    await this.waitForElementPresent(element);
+    await this.waitForElementVisible(element);
+    return await element.getText();
   }
 }
