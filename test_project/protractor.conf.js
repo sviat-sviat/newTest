@@ -1,5 +1,9 @@
 let realTimeConsoleSpecReporter = require('jasmine-spec-reporter').SpecReporter;
+let path = require("path");
 require("ts-node").register();
+
+let resolvePath = (filePath) => path.resolve(__dirname, filePath);
+let downloadsPath = resolvePath("./test_project/helpers/downloads/");
 
 exports.config = {
   framework: "jasmine",
@@ -10,7 +14,7 @@ exports.config = {
   },
   directConnect:true,
   restartBrowserBetweenTests: true,
-  specs: ["./tests/**/*.spec.ts"],
+  specs: ["./tests/*.spec.ts"],
 
   capabilities: {
     browserName: "chrome",

@@ -4,7 +4,10 @@
   "description": "small test project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "webdriver:update": "webdriver-manager update",
+    "webdriver:start": "webdriver-manager start",
+    "webdriver:stop": "webdriver-manager shutdown",
+    "test:run": "protractor test_project/protractor.conf.js"
   },
   "dependencies": {
     "@angular/common": "^11.0.9",
